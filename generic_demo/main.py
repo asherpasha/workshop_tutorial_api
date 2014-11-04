@@ -27,7 +27,7 @@ def search(arg):
     # if r.ok:
     #    return r.headers['Content-Type'], r.content
     # else:
-    #   return 'text/plaintext; charset=ISO-8859-1', 'An error occurred on the remote server'
+    #   return 'text/plaintext; charset=UTF-8', 'An error occurred on the remote server'
 
 def list(arg):
     pass
