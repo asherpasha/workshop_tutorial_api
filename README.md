@@ -8,7 +8,7 @@ This is a tutorial in which you will learn the basics of developing, testing, an
 2. Click on the 'Fork' button to create a copy of this repo under your own Github account
 3. Go to the top level of the forked repo in YOUR GITHUB and clone it to your local system (You should be in https://github.com/YOUR-GITHUB-USERNAME/workshop_tutorial_api/)
 4. Check out the tutorial/1 branch
-5. Follow the directions in the [README.md] file
+5. Follow the directions in the [README.md](README.md) file
 
 ```
 git clone https://github.com/YOUR-GITHUB-USERNAME/workshop_tutorial_api.git
