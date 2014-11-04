@@ -125,3 +125,18 @@ Inevitably, you will want to update your service, either to refresh the metadata
 1. Update by incrementing the version number and re-posting
 
 2. Update by re-posting the service
+
+_Moving on_
+
+If you want to save your current work, please do the following in your local workshop_tutorial_api directory
+
+```
+git add .
+git commit -m "In progress!"
+```
+
+Checkout the next branch to begin work on a query service. Follow along with the instructions in the README.md file under that branch.
+
+```
+git checkout "tutorial/3"
+```
