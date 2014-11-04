@@ -1,0 +1,8 @@
+---
+description: "Returns MapMan bin information for a given AGI locus identifier using the passthrough type of Araport web service"
+name: pass_mapman_bin_by_locus
+type: passthrough
+url: "http://www.gabipd.org/services/rest/mapman/bin"
+version: 0.1
+whitelist:
+  - www.gabipd.org

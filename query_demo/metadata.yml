@@ -1,0 +1,9 @@
+---
+description: "Returns MapMan bin information for a given AGI locus identifier using the query type of Araport web service"
+main_module: generic_demo/main.py
+name: query_mapman_bin_by_locus
+type: query
+url: "http://www.gabipd.org/"
+version: 0.1
+whitelist:
+  - www.gabipd.org
