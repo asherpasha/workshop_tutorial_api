@@ -39,6 +39,7 @@ curl -H "Authorization: Bearer $TOKEN" -sk -X POST $API/namespaces \
 
 You should get back a response similar to this one:
 
+```
 {
     "result": "https://api.araport.org/community/v0.3/vaughn-dev",
     "status": "success"
@@ -76,6 +77,7 @@ curl -skL -XGET -H "Authorization: Bearer $TOKEN" https://api.araport.org/commun
 
 The result will resemble this JSON:
 
+```
 {
     "result": {
         "service": {
