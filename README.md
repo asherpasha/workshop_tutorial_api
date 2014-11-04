@@ -80,7 +80,7 @@ _Register the query service with AIP_
 Assuming you have been through the tutorial, you will be aware of the ENV variables referred to here:
 
 ```
-curl -skL -XPOST -H "Authorization: Bearer $TOKEN" -F "git_repository=https://github.com/*YOUR-GITHUB-UNAME*/data_api_examples.git" -F "metadata=query_demo" $API/$NS/services 
+curl -skL -XPOST -H "Authorization: Bearer $TOKEN" -F "git_repository=https://github.com/*YOUR-GITHUB-UNAME*/workshop_tutorial_api.git" -F "metadata=query_demo" $API/$NS/services 
 ```
 
 _Moving on_
