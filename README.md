@@ -51,7 +51,7 @@ _Post your new web service into your namespace_
 Because we will be creating multiple APIs from a single repository, we must specify the path (relative to the root of the repo) where the metadata.yml file can be found. If this is ommitted, ADAMA looks at the root level. Also note that at present, ADAMA can only check out from the master branch. This will be addressed in a future release of the service. 
 
 ```
-curl -skL -XPOST -H "Authorization: Bearer $TOKEN" -F "git_repository=https://github.com/*YOUR-GITHUB-UNAME*/data_api_examples.git" -F "metadata=generic_demo" $API/$NS/services 
+curl -skL -XPOST -H "Authorization: Bearer $TOKEN" -F "git_repository=https://github.com/*YOUR-GITHUB-UNAME*/workshop_tutorial_api.git" -F "metadata=generic_demo" $API/$NS/services 
 ```
 
 You should get back a response similar to this one:
