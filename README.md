@@ -1,10 +1,10 @@
-# Araport Community API v 0.3 Tutorial
+# Araport Community API v0.3 Tutorial
 
 ## Tutorial 3: Creating a query-type service
 
-Parameter handling and HTTP request management are the same between generic and query types. The difference is in how we process the response from the remote server. Open up query_demo/main.py in your editor and scroll down past the parameter handling code:
+Parameter handling and HTTP request management are the same between generic and query types. The difference is in how we process the response from the remote server. Open up `query_demo/main.py` in your editor and scroll down past the parameter handling code:
 
-```
+```python
     ...
     r = requests.get('http://www.gabipd.org/services/rest/mapman/bin?request=' + param)
 
@@ -30,7 +30,7 @@ Parameter handling and HTTP request management are the same between generic and 
 
 The response from the MapMan server is:
 
-```
+```JSON
 [
     {"request":
         {"agi":"At4g25530"},
@@ -55,7 +55,7 @@ _Test out the code in a Python editor_
 
 Change to the query_demo directory and launch a Python interpreter:
 
-```
+```python
 >>> import main
 >>> main.search({'locus':'AT4G25530'})
 {
@@ -80,18 +80,18 @@ _Register the query service with AIP_
 Assuming you have been through the tutorial, you will be aware of the ENV variables referred to here:
 
 1. POST your service
-```
+```bash
 curl -skL -XPOST -H "Authorization: Bearer $TOKEN" -F "git_repository=https://github.com/*YOUR-GITHUB-UNAME*/workshop_tutorial_api.git" -F "metadata=query_demo" $API/$NS/services
 ```
 
 2. Check its status
-```
+```bash
 curl -skL -XGET -H "Authorization: Bearer $TOKEN" https://api.araport.org/community/v0.3/$NS/query_mapman_bin_by_locus_v0.1
 ```
 
 3. Test it out
 
-```
+```bash
 curl -skL -XGET -H "Authorization: Bearer $TOKEN" https://api.araport.org/community/v0.3/$NS/query_mapman_bin_by_locus_v0.1/search?locus=AT4G25530
 
 {"result":[
@@ -109,15 +109,15 @@ curl -skL -XGET -H "Authorization: Bearer $TOKEN" https://api.araport.org/commun
 
 _Moving on_
 
-If you want to save your work on this branch, please do the following in your local workshop_tutorial_api directory
+If you want to save your work on this branch, please do the following in your local `workshop_tutorial_api` directory
 
-```
+```bash
 git add .
 git commit -m "In progress!"
 ```
 
 Checkout the next branch to begin work on a passthrough service. Follow along with the instructions in the README.md file under that branch.
 
-```
+```bash
 git checkout "tutorial/4"
 ```
