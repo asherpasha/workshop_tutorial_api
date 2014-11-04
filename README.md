@@ -1,123 +1,44 @@
 # Araport Community API v 0.3 Tutorial
 
-## Tutorial 3: Creating a query-type service 
+## Tutorial 4: Creating a passthrough-type service
 
-Parameter handling and HTTP request management are the same between generic and query types. The difference is in how we process the response from the remote server. Open up query_demo/main.py in your editor and scroll down past the parameter handling code:
+This is remarkably simple, All you are going to do is establish a communications route between an API context provided by ADAMA and a remote service URL. The ADAMA service will act as a proxy, but will add value by providing CORS support, HTTPS, logging, OAuth2 authentication, and discoverability in the Araport Data API Store.
 
-```
-    ...
-    r = requests.get('http://www.gabipd.org/services/rest/mapman/bin?request=' + param)
-    
-    # Instead of returning the JSON native to the MapMan service
-    # we traverse it and transform it into an AIP locus_property
-    #
-    # Then, we print out individual records as JSON, separated by a '---' delimiter
-    # This allows large results to be streamed back to the client
+There are two ways to register a passthrough: you can just POST a form containing all the requisite parameters, which we will not cover, or you can create a small Git repo containing a metadata.yml file. We prefer the latter because its consistent with the other types, provides external documentation of the service, and opens up the capability in the future of using ADAMA's automatic documentation generation capability to describe how to invoke your API.
 
-    if r.ok:
-        for rec in r.json():
-            for result in rec['result']:
-                new_record = { 'class': 'locus_property', 
-                'locus': locus,
-                'properties': [ {'type':'mapman_bin', 'value': result['code'] },
-                {'type':'mapman_name', 'value':result['name']}] }
-
-                print json.dumps(new_record, indent=4)
-               print '---'
-    else:
-        return
-```
-
-The response from the MapMan server is: 
+_Let's examine passthrough_demo/metadata.yml_
 
 ```
-[
-    {"request":
-        {"agi":"At4g25530"},
-     "result":[
-        {"code":"27.3.22",
-         "name":"RNA.regulation of transcription.HB,Homeobox transcription factor family",
-         "description":"no description",
-         "parent":
-            {"code":"27.3",
-             "name":"RNA.regulation of transcription",
-             "description":"no description",
-             "parent":
-                {"code":"27",
-                 "name":"RNA",
-                 "description":"no description",
-                 "parent":null}}}]}]
-```                 
-
-For those not familiar with JSON, this is an array of responses, each one of which contains a pair of keys 'request' and 'result'. The 'result' key is an array of MapMap codes (and their parental lineage which we are ignoring). We will transform this response to an AIP locus_property, which is basically a data structure containing the locus identifier and an array of properties. At present, we don't proscribe the names of keys inside these properties but will soon offer a lookup service so one can see what other API developers have used. 
-
-_Test out the code in a Python editor_
-
-Change to the query_demo directory and launch a Python interpreter:
-
-```
->>> import main
->>> main.search({'locus':'AT4G25530'})
-{
-    "properties": [
-        {
-            "type": "mapman_bin", 
-            "value": "27.3.22"
-        }, 
-        {
-            "type": "mapman_name", 
-            "value": "RNA.regulation of transcription.HB,Homeobox transcription factor family"
-        }
-    ], 
-    "class": "locus_property", 
-    "locus": "AT4G25530"
-}
 ---
+description: "Returns MapMan bin information for a given AGI locus identifier using the passthrough type of Araport web service"
+name: pass_mapman_bin_by_locus
+type: passthrough
+url: "http://www.gabipd.org/services/rest/mapman/bin"
+version: 0.1
+whitelist:
+  - www.gabipd.org
 ```
 
-_Register the query service with AIP_
+The major difference between this file and the ones we've used to date is that 'url' actually points to the most terminal endpoint of your remote service.
 
-Assuming you have been through the tutorial, you will be aware of the ENV variables referred to here:
-
-1. POST your service
-```
-curl -skL -XPOST -H "Authorization: Bearer $TOKEN" -F "git_repository=https://github.com/*YOUR-GITHUB-UNAME*/workshop_tutorial_api.git" -F "metadata=query_demo" $API/$NS/services 
-```
-
-2. Check its status
-```
-curl -skL -XGET -H "Authorization: Bearer $TOKEN" https://api.araport.org/community/v0.3/$NS/query_mapman_bin_by_locus_v0.1
-```
-
-3. Test it out
+_Go ahead and register the service with ADAMA_
 
 ```
-curl -skL -XGET -H "Authorization: Bearer $TOKEN" https://api.araport.org/community/v0.3/$NS/query_mapman_bin_by_locus_v0.1/search?locus=AT4G25530
-
-{"result":[
-    {"locus":"AT4G25530",
-     "properties":[
-        {"type":"mapman_bin",
-         "value":"27.3.22"},
-        {"type":"mapman_name",
-         "value":"RNA.regulation of transcription.HB,Homeobox transcription factor family"}],
-     "class":"locus_property"}],
- "metadata":
-    {"time_in_main":0.5226819515228271},
- "status":"success"}
+curl -skL -XPOST -H "Authorization: Bearer $TOKEN" -F "git_repository=https://github.com/*YOUR-GITHUB-UNAME*/workshop_tutorial_api.git" -F "metadata=passthrough_demo" $API/$NS/services
 ```
 
-_Moving on_
-
-If you want to save your work on this branch, please do the following in your local workshop_tutorial_api directory
+_Test that registration was successful_
 
 ```
-git add .
-git commit -m "In progress!"
+curl -skL -XGET -H "Authorization: Bearer $TOKEN" https://api.araport.org/community/v0.3/${NS}/pass_mapman_bin_by_locus_v0.1
 ```
 
-Checkout the next branch to begin work on a query service. Follow along with the instructions in the README.md file under that branch.
+_Test that the passthrough works_
+
+The remote service is invoked as follows: http://www.gabipd.org/services/rest/mapman/bin?request=[{"agi":"At4g25530"}] However, this URL is not safe because it's not URL-encoded. To create a URL-encoded string, cut and paste into this handy [URL Decoder/Encoder](http://meyerweb.com/eric/tools/dencoder/). Then, construct your URL.
 
 ```
-git checkout "tutorial/4"
+curl -skL -XGET -H "Authorization: Bearer $TOKEN" https://api.araport.org/community/v0.3/${NS}/pass_mapman_bin_by_locus_v0.1/access?request=%5B%7B%22agi%22%3A%22At4g25530%22%7D%5D
+
+[{"request":{"agi":"At4g25530"},"result":[{"code":"27.3.22","name":"RNA.regulation of transcription.HB,Homeobox transcription factor family","description":"no description","parent":{"code":"27.3","name":"RNA.regulation of transcription","description":"no description","parent":{"code":"27","name":"RNA","description":"no description","parent":null}}}]}]
 ```
