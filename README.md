@@ -81,7 +81,7 @@ Uncomment the following code blocks:
         return
 ```
 
-Now, let's go test it out in a Python environment. Remember that you should be in a virtual environment with requests, re, and json modules available because we imported them at the start of `main.py`. 
+Now, let's go test it out in a Python environment. Remember that you should be in a virtual environment with the `requests` module available because we imported it at the start of `main.py`. 
 
 ```
 Python 2.7.6 (default, Sep  9 2014, 15:04:36) 
