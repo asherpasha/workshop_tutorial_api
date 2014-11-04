@@ -1,13 +1,13 @@
 # Araport Community API v 0.3 Tutorial
 
-## Tutorial 3: Creating a query-type service 
+## Tutorial 3: Creating a query-type service
 
 Parameter handling and HTTP request management are the same between generic and query types. The difference is in how we process the response from the remote server. Open up query_demo/main.py in your editor and scroll down past the parameter handling code:
 
 ```
     ...
     r = requests.get('http://www.gabipd.org/services/rest/mapman/bin?request=' + param)
-    
+
     # Instead of returning the JSON native to the MapMan service
     # we traverse it and transform it into an AIP locus_property
     #
@@ -17,7 +17,7 @@ Parameter handling and HTTP request management are the same between generic and 
     if r.ok:
         for rec in r.json():
             for result in rec['result']:
-                new_record = { 'class': 'locus_property', 
+                new_record = { 'class': 'locus_property',
                 'locus': locus,
                 'properties': [ {'type':'mapman_bin', 'value': result['code'] },
                 {'type':'mapman_name', 'value':result['name']}] }
@@ -28,7 +28,7 @@ Parameter handling and HTTP request management are the same between generic and 
         return
 ```
 
-The response from the MapMan server is: 
+The response from the MapMan server is:
 
 ```
 [
@@ -47,9 +47,9 @@ The response from the MapMan server is:
                  "name":"RNA",
                  "description":"no description",
                  "parent":null}}}]}]
-```                 
+```
 
-For those not familiar with JSON, this is an array of responses, each one of which contains a pair of keys 'request' and 'result'. The 'result' key is an array of MapMap codes (and their parental lineage which we are ignoring). We will transform this response to an AIP locus_property, which is basically a data structure containing the locus identifier and an array of properties. At present, we don't proscribe the names of keys inside these properties but will soon offer a lookup service so one can see what other API developers have used. 
+For those not familiar with JSON, this is an array of responses, each one of which contains a pair of keys 'request' and 'result'. The 'result' key is an array of MapMap codes (and their parental lineage which we are ignoring). We will transform this response to an AIP locus_property, which is basically a data structure containing the locus identifier and an array of properties. At present, we don't proscribe the names of keys inside these properties but will soon offer a lookup service so one can see what other API developers have used.
 
 _Test out the code in a Python editor_
 
@@ -61,15 +61,15 @@ Change to the query_demo directory and launch a Python interpreter:
 {
     "properties": [
         {
-            "type": "mapman_bin", 
+            "type": "mapman_bin",
             "value": "27.3.22"
-        }, 
+        },
         {
-            "type": "mapman_name", 
+            "type": "mapman_name",
             "value": "RNA.regulation of transcription.HB,Homeobox transcription factor family"
         }
-    ], 
-    "class": "locus_property", 
+    ],
+    "class": "locus_property",
     "locus": "AT4G25530"
 }
 ---
@@ -81,7 +81,7 @@ Assuming you have been through the tutorial, you will be aware of the ENV variab
 
 1. POST your service
 ```
-curl -skL -XPOST -H "Authorization: Bearer $TOKEN" -F "git_repository=https://github.com/*YOUR-GITHUB-UNAME*/workshop_tutorial_api.git" -F "metadata=query_demo" $API/$NS/services 
+curl -skL -XPOST -H "Authorization: Bearer $TOKEN" -F "git_repository=https://github.com/*YOUR-GITHUB-UNAME*/workshop_tutorial_api.git" -F "metadata=query_demo" $API/$NS/services
 ```
 
 2. Check its status
@@ -116,7 +116,7 @@ git add .
 git commit -m "In progress!"
 ```
 
-Checkout the next branch to begin work on a query service. Follow along with the instructions in the README.md file under that branch.
+Checkout the next branch to begin work on a passthrough service. Follow along with the instructions in the README.md file under that branch.
 
 ```
 git checkout "tutorial/4"
