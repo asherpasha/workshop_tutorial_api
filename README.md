@@ -59,7 +59,7 @@ Open up `workshop_tutorial_api/generic_demo/main.py` in your text editor. You wi
     # if r.ok:
     #    return r.headers['Content-Type'], r.content
     # else:
-    #   return 'text/plaintext; charset=ISO-8859-1', 'An error occurred on the remote server'
+    #   return 'text/plaintext; charset=UTF-8', 'An error occurred on the remote server'
 ```
 
 #### Parameter validation
@@ -144,7 +144,7 @@ Re-comment and uncomment the following code blocks
     if r.ok:
         return r.headers['Content-Type'], r.content
     else:
-        return 'text/plaintext; charset=ISO-8859-1', 'An error occurred on the remote server'
+        return 'text/plaintext; charset=UTF-8', 'An error occurred on the remote server'
 ```        
 
 Technically, for this use case we could just return the header provided by the remote service and its content, but we are being clever and checking for 200 OK. We return a plaintext error if we don't see see a server code of 200 in the response from the MapMan remote API. 
