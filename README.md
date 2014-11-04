@@ -35,7 +35,7 @@ curl -skL -XGET -H "Authorization: Bearer $TOKEN" https://api.araport.org/commun
 
 _Test that the passthrough works_
 
-The remote service is invoked as follows: http://www.gabipd.org/services/rest/mapman/bin?request=[{"agi":"At4g25530"}] However, this URL is not safe because it's not URL-encoded. To create a URL-encoded string, cut and paste into this handy [URL Decoder/Encoder](http://meyerweb.com/eric/tools/dencoder/). Then, construct your URL.
+The remote service is invoked as follows: http://www.gabipd.org/services/rest/mapman/bin?request=[{"agi":"At4g25530"}] However, this URL is not safe because it's not URL-encoded. To create a URL-encoded string, cut and paste the parameter portion *request=[{"agi":"At4g25530"}]* into this handy [URL Decoder/Encoder](http://meyerweb.com/eric/tools/dencoder/). Then, construct your URL.
 
 ```
 curl -skL -XGET -H "Authorization: Bearer $TOKEN" https://api.araport.org/community/v0.3/${NS}/pass_mapman_bin_by_locus_v0.1/access?request=%5B%7B%22agi%22%3A%22At4g25530%22%7D%5D
