@@ -80,31 +80,30 @@ _Register the query service with AIP_
 Assuming you have been through the tutorial, you will be aware of the ENV variables referred to here:
 
 1. POST your service
-```bash
-curl -skL -XPOST -H "Authorization: Bearer $TOKEN" -F "git_repository=https://github.com/*YOUR-GITHUB-UNAME*/workshop_tutorial_api.git" -F "metadata=query_demo" $API/$NS/services
-```
+    ```bash
+    curl -skL -XPOST -H "Authorization: Bearer $TOKEN" -F    "git_repository=https://github.com/*YOUR-GITHUB-UNAME*/workshop_tutorial_api.git" -F "metadata=query_demo" $API/$NS/services
+    ```
 
 2. Check its status
-```bash
-curl -skL -XGET -H "Authorization: Bearer $TOKEN" https://api.araport.org/community/v0.3/$NS/query_mapman_bin_by_locus_v0.1
-```
+    ```bash
+    curl -skL -XGET -H "Authorization: Bearer $TOKEN" https://api.araport.org/community/v0.3/$NS/query_mapman_bin_by_locus_v0.1
+    ```
 
 3. Test it out
+    ```bash
+    curl -skL -XGET -H "Authorization: Bearer $TOKEN"     https://api.araport.org/community/v0.3/$NS/query_mapman_bin_by_locus_v0.1/search?locus=AT4G25530
 
-```bash
-curl -skL -XGET -H "Authorization: Bearer $TOKEN" https://api.araport.org/community/v0.3/$NS/query_mapman_bin_by_locus_v0.1/search?locus=AT4G25530
-
-{"result":[
-    {"locus":"AT4G25530",
-     "properties":[
-        {"type":"mapman_bin",
-         "value":"27.3.22"},
-        {"type":"mapman_name",
-         "value":"RNA.regulation of transcription.HB,Homeobox transcription factor family"}],
-     "class":"locus_property"}],
- "metadata":
-    {"time_in_main":0.5226819515228271},
- "status":"success"}
+    {"result":[
+        {"locus":"AT4G25530",
+         "properties":[
+            {"type":"mapman_bin",
+             "value":"27.3.22"},
+            {"type":"mapman_name",
+             "value":"RNA.regulation of transcription.HB,Homeobox transcription factor family"}],
+         "class":"locus_property"}],
+     "metadata":
+        {"time_in_main":0.5226819515228271},
+     "status":"success"}
 ```
 
 _Moving on_
