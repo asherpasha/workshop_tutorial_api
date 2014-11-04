@@ -36,7 +36,7 @@ def search(arg):
                 {'type':'mapman_name', 'value':result['name']}] }
 
                 print json.dumps(new_record, indent=4)
-               print '---'
+                print '---'
     else:
         return
 
