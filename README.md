@@ -1,4 +1,4 @@
-# Araport Community API v 0.3 Tutorial
+# Araport Community API v0.3 Tutorial
 
 ## Tutorial 4: Creating a passthrough-type service
 
@@ -8,7 +8,7 @@ There are two ways to register a passthrough: you can just POST a form containin
 
 _Let's examine passthrough_demo/metadata.yml_
 
-```
+```YAML
 ---
 description: "Returns MapMan bin information for a given AGI locus identifier using the passthrough type of Araport web service"
 name: pass_mapman_bin_by_locus
@@ -19,25 +19,25 @@ whitelist:
   - www.gabipd.org
 ```
 
-The major difference between this file and the ones we've used to date is that 'url' actually points to the most terminal endpoint of your remote service.
+The major difference between this file and the ones we've used to date is that `url` actually points to the most terminal endpoint of your remote service.
 
 _Go ahead and register the service with ADAMA_
 
-```
+```bash
 curl -skL -XPOST -H "Authorization: Bearer $TOKEN" -F "git_repository=https://github.com/*YOUR-GITHUB-UNAME*/workshop_tutorial_api.git" -F "metadata=passthrough_demo" $API/$NS/services
 ```
 
 _Test that registration was successful_
 
-```
+```bash
 curl -skL -XGET -H "Authorization: Bearer $TOKEN" https://api.araport.org/community/v0.3/${NS}/pass_mapman_bin_by_locus_v0.1
 ```
 
 _Test that the passthrough works_
 
-The remote service is invoked as follows: http://www.gabipd.org/services/rest/mapman/bin?request=[{"agi":"At4g25530"}] However, this URL is not safe because it's not URL-encoded. To create a URL-encoded string, cut and paste the parameter portion *request=[{"agi":"At4g25530"}]* into this handy [URL Decoder/Encoder](http://meyerweb.com/eric/tools/dencoder/). Then, construct your URL.
+The remote service is invoked as follows: `http://www.gabipd.org/services/rest/mapman/bin?request=[{"agi":"At4g25530"}]` However, this URL is not safe because it's not URL-encoded. To create a URL-encoded string, cut and paste the parameter portion *request=[{"agi":"At4g25530"}]* into this handy [URL Decoder/Encoder](http://meyerweb.com/eric/tools/dencoder/). Then, construct your URL.
 
-```
+```bash
 curl -skL -XGET -H "Authorization: Bearer $TOKEN" https://api.araport.org/community/v0.3/${NS}/pass_mapman_bin_by_locus_v0.1/access?request=%5B%7B%22agi%22%3A%22At4g25530%22%7D%5D
 
 [{"request":{"agi":"At4g25530"},"result":[{"code":"27.3.22","name":"RNA.regulation of transcription.HB,Homeobox transcription factor family","description":"no description","parent":{"code":"27.3","name":"RNA.regulation of transcription","description":"no description","parent":{"code":"27","name":"RNA","description":"no description","parent":null}}}]}]
