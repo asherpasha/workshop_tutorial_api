@@ -116,7 +116,7 @@ _Testing your new service_
 Finally, you will test the service by issuing an authenticated, parameterized GET to its search endpoint. Here's an example, though the namespace will be different for you. 
 
 ```bash
-curl -skL -XGET -H "Authorization: Bearer $TOKEN" https://api.araport.org/community/v0.3/vaughn-dev/generic_mapman_bin_by_locus_v0.1/search?locus=At4g25530
+curl -skL -XGET -H "Authorization: Bearer $TOKEN" $API/$NS/generic_mapman_bin_by_locus_v0.1/search?locus=At4g25530
 
 [{"request":{"agi":"AT4G25530"},"result":[{"code":"27.3.22","name":"RNA.regulation of transcription.HB,Homeobox transcription factor family","description":"no description","parent":{"code":"27.3","name":"RNA.regulation of transcription","description":"no description","parent":{"code":"27","name":"RNA","description":"no description","parent":null}}}]}]
 ```
