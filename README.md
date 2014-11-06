@@ -73,7 +73,7 @@ You should get back a response similar to this one:
 This tells you that the process of creating your service has begun. You should wait a minute and then poll the `state_url` endpoint to confirm that the new service has been properly deployed.
 
 ```bash
-curl -skL -XGET -H "Authorization: Bearer $TOKEN" https://api.araport.org/community/v0.3/vaughn-dev/generic_mapman_bin_by_locus_v0.1
+curl -skL -XGET -H "Authorization: Bearer $TOKEN" $API/$NS/generic_mapman_bin_by_locus_v0.1
 ```
 
 The result will resemble this JSON:
